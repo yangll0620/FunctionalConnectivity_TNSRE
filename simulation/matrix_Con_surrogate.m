@@ -77,6 +77,6 @@ for i_time = change_point2 : n_time
 end
 clear ind_Cluster i_time
 
-save('matrixConn_Surrogate.mat','matrix_Con_Surrogate')
+save('matrixConn_Surrogate.mat','matrix_Con_Surr')
 
 
