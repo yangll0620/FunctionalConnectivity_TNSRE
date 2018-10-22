@@ -16,7 +16,7 @@ matrix_Con_Surr = zeros(n_chns, n_chns, n_time); % connectivity matrix
 % weak connections across all the channels
 matrix_Con_Surr = normrnd(0.1,0.02,size(matrix_Con_Surr));
 for i_chn = 1:n_chns
-    matrix_Con_Surr(i_chn, i_chn,:) = 1;
+    matrix_Con_Surr(i_chn, i_chn,:) = 0;
 end
 
 % in [1:60]
