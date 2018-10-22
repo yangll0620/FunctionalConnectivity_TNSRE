@@ -12,14 +12,20 @@ n_time = 180;
 n_chns = 64;
 
 matrix_Con_Surr = zeros(n_chns, n_chns, n_time); % connectivity matrix
-
 % weak connections across all the channels
-matrix_Con_Surr = normrnd(0.1,0.02,size(matrix_Con_Surr));
-for i_chn = 1:n_chns
-    matrix_Con_Surr(i_chn, i_chn,:) = 0;
+for i_time = 1: n_time
+    for i_chn = 1:n_chns
+        for j_chn = i_chn + 1:n_chns
+            weight = normrnd(0.1,0.02);  
+            matrix_Con_Surr(i_chn, j_chn, i_time) = weight;
+            matrix_Con_Surr(j_chn,i_chn,i_time) = weight; 
+            clear weight
+        end
+    end
 end
 
-% in [1:60]
+
+% in time [1:60]
 ind_Cluster = [1:30]; % total edges = nchoosek(30,2) = 435
 for i_time = 1:change_point1-1
     for i = 1:length(ind_Cluster)
