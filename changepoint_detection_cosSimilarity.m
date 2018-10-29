@@ -1,5 +1,6 @@
 function [points_change, diff] = changepoint_detection_cosSimilarity(matrix_Con)
 % detect the change points using connectivity matrix based on cosine similarity
+
 % input:    
 %           matrix_Con: connectivity matrix, n_chns * n_chns * n_times
 % output:
