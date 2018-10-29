@@ -28,7 +28,9 @@ for i_time = 2: length(Us)
     clear U_current U_previous r M M_base
 end
 
-signlev = 0.05;
+% change points are found as the values belong to the area <signlev
+signlev = 0.05; % set significant level
 pd = fitdist(diff, 'Lognormal');
 pct = icdf(pd, signlev);    
 points_change = find(diff < pct);
+
