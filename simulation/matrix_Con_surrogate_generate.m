@@ -1,4 +1,4 @@
-function matrix_Con_Surr = matrix_Con_surrogate()
+function matrix_Con_Surr = matrix_Con_surrogate_generate()
 % generate surrogate connectivity matrix 
 % ref: 
 %   Mahyari et al (2017 TBME)'A Tensor Decomposition-Based Approach for Detecting Dynamic Network States From EEG', 
