@@ -2,7 +2,7 @@
 # @Author: yll
 # @Date:   2018-11-02 10:55:38
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-02 11:33:55
+# @Last Modified time: 2018-11-08 15:23:39
 
 from igraph import Graph
 from igraph import ClusterColoringPalette
@@ -53,4 +53,5 @@ def network_visualization(w_plot, membership, name, coord_xy):
 	visual_style["edge_color"] = edge_color_list
 	#visual_style["edge_width"] = [1 + 2 * int(is_formal) for is_formal in g.es["is_formal"]]
 
-	plot(g_plot, **visual_style)
+	plot(g_plot, "network.png",**visual_style)
+	plot(g_plot,**visual_style)
