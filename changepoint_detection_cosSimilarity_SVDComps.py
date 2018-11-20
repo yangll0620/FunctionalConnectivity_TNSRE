@@ -2,7 +2,7 @@
 # @Author: yll
 # @Date:   2018-11-08 09:16:34
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-08 12:16:17
+# @Last Modified time: 2018-11-20 15:14:58
 
 import numpy as np
 from numpy.linalg import svd
@@ -13,8 +13,11 @@ def similarity_cosin(u1, u2):
 	similarity_cos = np.dot(u1,u2)/(np.linalg.norm(u1)* np.linalg.norm(u2))
 	return similarity_cos
 
-def changepoint_detection_cosSimilarity(matrix_Con):
-	""" detect the change points using connectivity matrix based on cosine similarity
+def changepoint_detection_cosSimilarity_SVDComps(matrix_Con):
+	""" detect the change points using connectivity matrix based on cosine similarity of SVD components
+
+		each matrix (n_chns * n_chns) is first decomposed using SVD
+		Then, cosSimilarity is calcuated using weighted cosin similarity
 
 		@ parameter matrix_Con: connectivity matrix, n_chns * n_chns * n_times
 
