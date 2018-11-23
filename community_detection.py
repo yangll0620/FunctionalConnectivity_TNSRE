@@ -2,14 +2,14 @@
 # @Author: yll
 # @Date:   2018-11-02 10:37:25
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-02 10:50:54
+# @Last Modified time: 2018-11-23 09:37:49
 
 import numpy as np
 from igraph import Graph
 def community_detection(matrix_conn):
 	""" detect community based on the connectivity matrix matrix_connectivity
 
-	@ param matrix_conn : connectivity matrix
+	@ param matrix_conn : connectivity matrix (n_chns * n_chns)
 
 	@ return membership : a vector indicating the community index for each vertex i.e. [0,0,0,1,1,1,0,0,2,2])
 	"""

@@ -2,7 +2,7 @@
 # @Author: yll
 # @Date:   2018-10-31 16:13:41
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-08 15:43:42
+# @Last Modified time: 2018-11-21 16:44:29
 
 import pandas as pd
 import numpy as np
@@ -10,7 +10,7 @@ from scipy.io import loadmat
 
 import sys
 sys.path.append("../")
-from changepoint_detection_cosSimilarity import changepoint_detection_cosSimilarity
+from changepoint_detection_cosSimilarity_SVDComps import changepoint_detection_cosSimilarity_SVDComps
 from community_detection import community_detection
 from network_visualization import network_visualization
 from weight_for_plotting_gen import weight_for_plotting_gen
@@ -38,14 +38,15 @@ coord_xy = inf_chans[:,1:3] # coord_xy:n_chans * 2, inf_chans column 1 & 2: x,y 
 
 # detect change points
 ''' separate EEG into individal segments'''
-points_change = changepoint_detection_cosSimilarity(matrix_Con_Surr)
+points_change = changepoint_detection_cosSimilarity_SVDComps(matrix_Con_Surr)
 i_pointchange = 0
 point_change = points_change[i_pointchange]
-conn_seg = matrix_Con_Surr[:,:,121:-1] # individual segment
+conn_seg = matrix_Con_Surr[:,:,120:-1] # individual segment
 np.savetxt("changepoint.txt",points_change)
 
 ''' extract the representive connectivity matrix for each time segment'''
-connM_repre = representive_connMatrix_SVD(conn_seg)
+#connM_repre = representive_connMatrix_SVD(conn_seg)
+connM_repre = np.mean(conn_seg,axis = 2) # average
 np.savetxt("connM_repre.txt",connM_repre)
 
 '''detect community'''
