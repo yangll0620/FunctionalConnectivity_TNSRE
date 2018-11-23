@@ -2,7 +2,7 @@
 # @Author: yll
 # @Date:   2018-11-02 11:51:12
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-08 15:34:16
+# @Last Modified time: 2018-11-21 11:39:26
 
 import numpy as np
 from tensorly.decomposition import tucker
@@ -15,7 +15,7 @@ def representive_connMatrix_SVD(conn_seg):
 
 		@ parameter conn_seg: a series of connective matrics for a time segment (n_chns * n_chns * n_times)
 
-		return conn_repre: one representive connective matrix for this time segment
+		return conn_repre: one representive connective matrix for this time segment (n_chns * n_chns)
 	"""
 	n_chns, n_chns, n_times = conn_seg.shape
 
