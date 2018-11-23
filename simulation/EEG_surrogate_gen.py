@@ -2,7 +2,7 @@
 # @Author: yll
 # @Date:   2018-11-22 14:54:25
 # @Last Modified by:   yll
-# @Last Modified time: 2018-11-23 10:40:43
+# @Last Modified time: 2018-11-23 11:31:12
 
 from scipy.io import savemat
 import numpy as np
@@ -33,7 +33,7 @@ def EEG_surr(cluster1, cluster2, Desired_SNR_dB = 20):
 		for j in range(i+1, len(cluster1)):
 			j_chn = cluster1[j]
 			weight = np.random.uniform(3,5) # weight in range [3 5]
-			C[i_chn][j_chn], C[i_chn][j_chn] = weight, weight
+			C[i_chn][j_chn], C[j_chn][i_chn] = weight, weight
 			del weight
 	# intra-connection in cluster 2
 	for i in range(len(cluster2)):
@@ -41,8 +41,9 @@ def EEG_surr(cluster1, cluster2, Desired_SNR_dB = 20):
 		for j in range(i+1, len(cluster2)):
 			j_chn = cluster2[j]
 			weight = np.random.uniform(3,5) # weight in range [3 5]
-			C[i_chn][j_chn], C[i_chn][j_chn] = weight, weight
+			C[i_chn][j_chn], C[j_chn][i_chn] = weight, weight
 			del weight
+
 	# interconnection
 	weight = np.random.uniform(1,3) # weight in range [1 3]
 	i_chn, j_chn = cluster1[-1], cluster2[0]
@@ -76,7 +77,7 @@ def EEG_surr(cluster1, cluster2, Desired_SNR_dB = 20):
 	    	X2[i_chn, i+1] = x2 + (x2_dot * dt)
 	    	X3[i_chn, i+1] = x3 + (x3_dot * dt)
 	    	del x1, x2, x3, X2_i
-
+	
 	eeg = X2[:,-501:-1:5] # the transients were dropped out and down-sampled, eeg: n_chns * 100
 	# add gaussian noise
 	eeg_noisy = np.zeros(eeg.shape)
