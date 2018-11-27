@@ -1,11 +1,11 @@
-function [points_change, diff] = changepoint_detection_cosSimilarity(matrix_Con)
+function [points_change, distances] = changepoint_detection_cosSimilarity(matrix_Con)
 % detect the change points using connectivity matrix based on cosine similarity
 
 % input:    
 %           matrix_Con: connectivity matrix, n_chns * n_chns * n_times
 % output:
 %           points_change: a vector, the change point indices
-%           diff: a vector, the differences along time
+%           distances: a vector, the differences along time
 
 % low-rank approximation using SVD for each time i, extract the 
 for i_time = 1:size(matrix_Con,3)
@@ -23,14 +23,33 @@ for i_time = 2: length(Us)
         similarity_cos(i_comp) = similarity_cosine(v1,v2); % cosine similarity
         clear v1 v2
     end
-    diff(i_time-1,1) = sqrt(sum(similarity_cos.^2))/r; % different matrix
+    distances(i_time-1,1) = sqrt(sum(similarity_cos.^2))/r; % different matrix
     clear similarity_cos
     clear U_current U_previous r M M_base
 end
 
-% change points are found as the values belong to the area <signlev
+% %%change points are found as the values belong to the area <signlev
 signlev = 0.05; % set significant level
-pd = fitdist(diff, 'Lognormal');
+pd = fitdist(distances, 'Lognormal');
 pct = icdf(pd, signlev);    
-points_change = find(diff < pct);
+points_change = find(distances < pct);
+interval = diff(points_change);
+ind_close = find(
+
+
+% %% 
+% n_pre = 10;
+% points_change =[];
+% i = n_pre + 1;
+% while(i<=length(distances))
+%     series_previous = distances(i-n_pre: i-1);
+%     v_mean = mean(series_previous);
+%     v_std = std(series_previous);
+%     if(distances(i) < v_mean - 3*v_std)
+%         points_change = [points_change i];
+%         i = i+ n_pre;
+%     end
+%     i = i+1;
+% end
+% points_change = points_change';
 
